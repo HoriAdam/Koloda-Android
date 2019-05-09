@@ -381,14 +381,14 @@ constructor(context: Context, attrs: AttributeSet? = null,
      */
     fun reloadPreviousCard() {
         if (isNeedCircleLoading) {
-            var pos = adapterPosition - (DEFAULT_MAX_VISIBLE_CARDS)
+            var pos = adapterPosition - (maxVisibleCards)
             if (pos < 0)
                 pos = adapter?.count?.plus(pos) ?: 0
 
             addCardOnTop(pos)
 
         } else {
-            addCardOnTop(adapterPosition - (DEFAULT_MAX_VISIBLE_CARDS))
+            addCardOnTop(adapterPosition - (maxVisibleCards))
         }
     }
 
