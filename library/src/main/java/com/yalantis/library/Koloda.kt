@@ -426,6 +426,21 @@ constructor(context: Context, attrs: AttributeSet? = null,
             view?.translationY = (cardPositionOffsetY * count).toFloat()
         }
     }
+    //
+    // setters
+    //
+
+    public fun setMaxVisibleCards(count:Int){
+        maxVisibleCards = count
+    }
+
+    public fun setCardPositionOffsetY(offset:Int){
+        cardPositionOffsetY = offset
+    }
+
+    public fun setScaleDiff(scale:Float){
+        scaleDiff = scale
+    }
 
     companion object {
         private const val DEFAULT_MAX_VISIBLE_CARDS = 2
