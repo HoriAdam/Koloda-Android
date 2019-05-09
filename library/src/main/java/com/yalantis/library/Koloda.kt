@@ -3,11 +3,9 @@ package com.yalantis.library
 import android.annotation.TargetApi
 import android.content.Context
 import android.database.DataSetObserver
-import android.graphics.Color
 import android.os.Build
 import android.support.annotation.DrawableRes
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Adapter
@@ -80,7 +78,7 @@ constructor(context: Context, attrs: AttributeSet? = null,
     private fun addCardToDeck() {
         if (adapterPosition < adapter?.count?.minus(1) ?: 0) {
 
-            val cardLayout = CardLayout(context, cardParams = this)
+            var cardLayout = CardLayout(context, cardParams = this)
 
             initializeCardPosition(cardLayout)
             cardLayout.let {
@@ -364,6 +362,21 @@ constructor(context: Context, attrs: AttributeSet? = null,
     }
 
     /**
+     * Show next card
+     */
+    fun showNextCard() {
+        val childCount = childCount
+        val topCard = getChildAt(childCount - 1 - dyingViews.size)
+        topCard?.let {
+            activeViews.add(it)
+            val cardOperator: CardOperator? = deckMap[it]
+
+                cardOperator?.hide()
+                it.rotation = -10f
+
+        }
+    }
+    /**
      * Reload previous card after every call. If current card position in adapter == 0 this method do nothing
      */
     fun reloadPreviousCard() {
@@ -379,6 +392,7 @@ constructor(context: Context, attrs: AttributeSet? = null,
         }
     }
 
+
     private fun addCardOnTop(position: Int) {
         removeView(getChildAt(0))
         activeViews.clear()
@@ -389,7 +403,7 @@ constructor(context: Context, attrs: AttributeSet? = null,
             }
         }
 
-        val cardLayout = CardLayout(context, cardParams = this)
+        var cardLayout = CardLayout(context, cardParams = this)
 
         cardLayout.let {
             addView(it, Math.min(childCount, maxVisibleCards + 1))
@@ -414,7 +428,7 @@ constructor(context: Context, attrs: AttributeSet? = null,
     }
 
     companion object {
-        private const val DEFAULT_MAX_VISIBLE_CARDS = 3
+        private const val DEFAULT_MAX_VISIBLE_CARDS = 2
         private const val DEFAULT_ROTATION_ANGLE = 30f
         private const val DEFAULT_SCALE_DIFF = 0.04f
     }

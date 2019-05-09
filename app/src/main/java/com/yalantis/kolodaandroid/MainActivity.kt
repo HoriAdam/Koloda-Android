@@ -1,14 +1,14 @@
 package com.yalantis.kolodaandroid
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import com.yalantis.library.KolodaListener
-import kotlinx.android.synthetic.main.activity_main.*
 import android.annotation.SuppressLint
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewTreeObserver
 import com.yalantis.kolodaandroid.R.id.actionReload
+import com.yalantis.library.KolodaListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -69,6 +69,10 @@ class MainActivity : AppCompatActivity() {
             override fun onEmptyDeck() {
                 //todo realize your logic
             }
+
+            override fun onCardSingleTap(position: Int) {
+                koloda.showNextCard()
+            }
         }
     }
 
@@ -91,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             R.drawable.oreo)
         adapter = KolodaSampleAdapter(this, data.toList())
         koloda.adapter = adapter
-        koloda.isNeedCircleLoading = true
+        //koloda.isNeedCircleLoading = true
     }
 
     private fun setUpCLickListeners() {

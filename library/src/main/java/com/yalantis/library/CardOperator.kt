@@ -115,8 +115,10 @@ class CardOperator(
     ) {
         swipedCardOffScreen()
 
+
         val valueAnimator = ValueAnimator()
         valueAnimator.setValues(pvhX, pvhY)
+        valueAnimator.duration = duration.toLong()
         valueAnimator.addUpdateListener {
             cardView.translationX = it.getAnimatedValue("x") as Float - initialCardPositionX
             cardView.translationY = it.getAnimatedValue("y") as Float - initialCardPositionY
@@ -129,6 +131,7 @@ class CardOperator(
             }
         })
         valueAnimator.start()
+
     }
 
     private fun checkCardPosition() {
@@ -307,6 +310,11 @@ class CardOperator(
         animateOffScreenLeft(DEFAULT_OFF_SCREEN_ANIMATION_DURATION, true, true)
     }
 
+    internal fun hide() {
+        initialCardPositionX = cardView.x
+        initialCardPositionY = cardView.y
+        animateOffScreenLeft(0, false, true)
+    }
     companion object {
         private const val DEFAULT_OFF_SCREEN_ANIMATION_DURATION = 600
         private const val DEFAULT_OFF_SCREEN_FLING_ANIMATION_DURATION = 150
